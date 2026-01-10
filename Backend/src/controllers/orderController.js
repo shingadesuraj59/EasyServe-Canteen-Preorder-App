@@ -7,7 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // placing user order for frontend
 const placeOrder = async (req, res) => {
        
-     const frontend_URL="https://easy-serve-frontend.vercel.app"
+     const frontend_URL=process.env.FRONTEND_URL || "https://easy-serve-frontend.vercel.app"
      
     try {
         const newOrder = new Order({

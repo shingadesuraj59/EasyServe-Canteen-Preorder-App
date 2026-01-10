@@ -9,11 +9,11 @@ const StoreContextProvider = (props) => {
     const [canteenInfo, setCanteenInfo] = useState([]);
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([]);
-    const URL ="https://easy-serve-backend.vercel.app";
+    const URL =import.meta.env.VITE_BACKEND_URL || "https://easy-serve-backend.vercel.app";
  
     const location = useLocation(); // Get the current route
 
-    console.log("bvv",URL)
+    
 
     const fetchFoodList = async () => {
         const response = await axios.get(URL + "/api/food/list");
