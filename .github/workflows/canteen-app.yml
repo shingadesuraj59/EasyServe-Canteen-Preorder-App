@@ -1,0 +1,51 @@
+name: Canteen App CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # ---------- BACKEND ----------
+      - name: Build Backend image
+        run: |
+          docker build -t canteen-backend ./Backend
+          docker tag canteen-backend:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-backend:latest
+          docker push \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-backend:latest
+
+      # ---------- FRONTEND ----------
+      - name: Build Frontend image
+        run: |
+          docker build -t canteen-frontend ./Frontend
+          docker tag canteen-frontend:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-frontend:latest
+          docker push \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-frontend:latest
+
+      # ---------- ADMIN ----------
+      - name: Build Admin image
+        run: |
+          docker build -t canteen-admin ./Admin
+          docker tag canteen-admin:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-admin:latest
+          docker push \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/canteen-admin:latest
