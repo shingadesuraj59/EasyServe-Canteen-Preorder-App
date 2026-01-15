@@ -9,7 +9,7 @@ import orderRouter from "./src/routes/orderRoute.js";
 import canteenRouter from "./src/routes/canteenRoute.js";
 
 const app = express();
-const port =  process.env.PORT || 5000;
+const port =  process.env.PORT || 4000;
 console.log();
 
 
