@@ -8,6 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrder = async (req, res) => {
        
      const frontend_URL=process.env.FRONTEND_URL
+     console.log(frontend_URL)
 
      
     try {

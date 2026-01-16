@@ -10,7 +10,7 @@ import canteenRouter from "./src/routes/canteenRoute.js";
 
 const app = express();
 const port =  process.env.PORT || 4000;
-console.log();
+console.log(" ");
 
 
 app.use(cors());         // access the backend from frontend
