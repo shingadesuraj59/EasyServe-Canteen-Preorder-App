@@ -9,7 +9,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# ---------- Production Stage ----------
+
 FROM nginx:alpine
 
 # Remove default nginx config
